@@ -1,0 +1,27 @@
+{
+    "name": "imponeer/log-data-output-decorator",
+    "description": "Small decorator that extends Symfony OutputInterface delivered class with few options for easier to log data",
+    "type": "library",
+    "require": {
+        "symfony/console": "^5.0",
+        "php": ">=7.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raimondas Rimkevičius",
+            "email": "github@mekdrop.name"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Imponeer\\Decorators\\LogDataOutput\\": "src/"
+        }
+    },
+    "keywords": [
+        "symfony",
+        "console",
+        "output",
+        "decorator"
+    ]
+}
