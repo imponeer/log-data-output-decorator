@@ -28,13 +28,6 @@ $output->info('test');
 $output->incrIndent();
 $output->info('#1');
 $output->info('#2');
-``
-
-## Using from templates
-
-To use this resource from templates, you need to use `db:` prefix when accessing files. For example :
-```smarty
-  {include file="db:/images/image.tpl"}
 ```
 
 ## How to contribute?
