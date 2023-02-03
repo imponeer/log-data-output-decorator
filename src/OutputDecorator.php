@@ -70,6 +70,15 @@ class OutputDecorator implements OutputInterface
     }
 
     /**
+     * Renders current indent string
+     *
+     * @return string
+     */
+    public function renderIndentString(): string {
+        return str_repeat(' ', $this->indent * 2);
+    }
+
+    /**
      * @inheritDoc
      */
     public function write($messages, $newline = false, $options = self::OUTPUT_NORMAL)
@@ -77,7 +86,7 @@ class OutputDecorator implements OutputInterface
         if ($this->indent > 0) {
             $tmpMsg = '';
             foreach (explode(PHP_EOL, $messages) as $line) {
-                $tmpMsg .= str_repeat(' ', $this->indent * 2) . $line . PHP_EOL;
+                $tmpMsg .= $this->renderIndentString() . $line . PHP_EOL;
             }
             $messages = rtrim($tmpMsg);
         }
@@ -150,7 +159,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function getVerbosity()
+    public function getVerbosity(): int
     {
         return $this->output->getVerbosity();
     }
@@ -158,7 +167,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function isQuiet()
+    public function isQuiet(): bool
     {
         return $this->output->isQuiet();
     }
@@ -166,7 +175,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function isVerbose()
+    public function isVerbose(): bool
     {
         return $this->output->isVerbose();
     }
@@ -174,7 +183,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function isVeryVerbose()
+    public function isVeryVerbose(): bool
     {
         return $this->output->isVeryVerbose();
     }
@@ -182,7 +191,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function isDebug()
+    public function isDebug(): bool
     {
         return $this->output->isDebug();
     }
@@ -190,7 +199,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function setDecorated($decorated)
+    public function setDecorated($decorated): void
     {
         $this->output->setDecorated($decorated);
     }
@@ -198,7 +207,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function isDecorated()
+    public function isDecorated(): bool
     {
         return $this->output->isDecorated();
     }
@@ -208,7 +217,7 @@ class OutputDecorator implements OutputInterface
      *
      * @param OutputFormatterInterface $formatter Output formatter
      */
-    public function setFormatter(OutputFormatterInterface $formatter)
+    public function setFormatter(OutputFormatterInterface $formatter): void
     {
         $this->output->setFormatter($formatter);
     }
@@ -216,7 +225,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function getFormatter()
+    public function getFormatter(): OutputFormatterInterface
     {
         return $this->output->getFormatter();
     }

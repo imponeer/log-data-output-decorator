@@ -3,8 +3,8 @@
     "description": "Small decorator that extends Symfony OutputInterface delivered class with few options for easier to log data",
     "type": "library",
     "require": {
-        "symfony/console": "^5.0",
-        "php": ">=7.2"
+        "symfony/console": "^6",
+        "php": ">=8.0.2"
     },
     "license": "MIT",
     "authors": [
@@ -23,5 +23,11 @@
         "console",
         "output",
         "decorator"
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^^9|^10"
+    },
+    "scripts": {
+        "test": "phpunit --testdox"
+    }
 }
