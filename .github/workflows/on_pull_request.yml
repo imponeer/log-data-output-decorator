@@ -13,18 +13,16 @@ jobs:
       max-parallel: 3
       matrix:
         php:
-          - 8.0
-          - 8.1
-          - 8.2
           - 8.3
-        composer: 
-          - 2  
+          - 8.4
+        composer:
+          - 2
     name: Test - php:${{ matrix.php }}; composer:${{ matrix.composer }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install PHP
-        uses: shivammathur/setup-php@master
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring, pcre
@@ -38,7 +36,7 @@ jobs:
         run: composer test
       - name: Install Composer dependencies (without dev)
         run: composer install --no-progress --no-dev --no-suggest --prefer-dist --optimize-autoloader
-        
+
   dependabot:
     needs: tests
     permissions:
@@ -69,4 +67,4 @@ jobs:
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}           
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
