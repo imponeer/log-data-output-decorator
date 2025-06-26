@@ -1,8 +1,8 @@
 <?php
 
 use Imponeer\Decorators\LogDataOutput\OutputDecorator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 class OutputDecoratorTest extends TestCase
@@ -98,9 +98,7 @@ class OutputDecoratorTest extends TestCase
         return $this->output->fetch();
     }
 
-    /**
-     * @dataProvider getTestData
-     */
+    #[DataProvider('getTestData')]
     public function testIncrIndent(string $method, string $text, array $args = [], ?string $shouldReturn = null): void {
         if ($shouldReturn === null) {
             $shouldReturn = $text;
@@ -120,9 +118,7 @@ class OutputDecoratorTest extends TestCase
         $this->assertSame($this->decorator->renderIndentString() . $shouldReturn . PHP_EOL, $buffer);
     }
 
-    /**
-     * @dataProvider getTestData
-     */
+    #[DataProvider('getTestData')]
     public function testDecrIndent(string $method, string $text, array $args = [], ?string $shouldReturn = null): void
     {
         if ($shouldReturn === null) {
@@ -139,9 +135,7 @@ class OutputDecoratorTest extends TestCase
         $this->assertSame($shouldReturn . PHP_EOL, $buffer);
     }
 
-    /**
-     * @dataProvider getTestData
-     */
+    #[DataProvider('getTestData')]
     public function testResetIncr(string $method, string $text, array $args = [], ?string $shouldReturn = null): void {
         if ($shouldReturn === null) {
             $shouldReturn = $text;
