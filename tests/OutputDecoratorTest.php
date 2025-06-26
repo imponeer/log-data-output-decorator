@@ -7,14 +7,8 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 class OutputDecoratorTest extends TestCase
 {
-    /**
-     * @var OutputDecorator
-     */
-    protected $decorator;
-    /**
-     * @var BufferedOutput
-     */
-    protected $output;
+    protected OutputDecorator $decorator;
+    protected BufferedOutput $output;
 
     protected function setUp(): void
     {
@@ -93,13 +87,12 @@ class OutputDecoratorTest extends TestCase
         ];
     }
 
-    protected function useDecoratorMethod(string $method, string $text, array $params): string {
+    private function useDecoratorMethod(string $method, string $text, array $params): string {
         if (empty($params)) {
             $this->decorator->$method($text);
         } else {
-            $args = $params;
-            array_unshift($args, $text);
-            call_user_func_array([$this->decorator, $method], $args);
+            $args = [$text, ...$params];
+            $this->decorator->$method(...$args);
         }
 
         return $this->output->fetch();
@@ -108,7 +101,7 @@ class OutputDecoratorTest extends TestCase
     /**
      * @dataProvider getTestData
      */
-    public function testIncrIndent(string $method, string $text, array $args = [], $shouldReturn = null): void {
+    public function testIncrIndent(string $method, string $text, array $args = [], ?string $shouldReturn = null): void {
         if ($shouldReturn === null) {
             $shouldReturn = $text;
         }
@@ -130,7 +123,7 @@ class OutputDecoratorTest extends TestCase
     /**
      * @dataProvider getTestData
      */
-    public function testDecrIndent(string $method, string $text, array $args = [], $shouldReturn = null): void
+    public function testDecrIndent(string $method, string $text, array $args = [], ?string $shouldReturn = null): void
     {
         if ($shouldReturn === null) {
             $shouldReturn = $text;
@@ -149,7 +142,7 @@ class OutputDecoratorTest extends TestCase
     /**
      * @dataProvider getTestData
      */
-    public function testResetIncr(string $method, string $text, array $args = [], $shouldReturn = null): void {
+    public function testResetIncr(string $method, string $text, array $args = [], ?string $shouldReturn = null): void {
         if ($shouldReturn === null) {
             $shouldReturn = $text;
         }

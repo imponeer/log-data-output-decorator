@@ -15,23 +15,20 @@ class OutputDecorator implements OutputInterface
     /**
      * Ident for each line in left
      *
-     * @var int
+     * @noinspection PropertyCanBePrivateInspection
      */
-    protected $indent = 0;
-
-    /**
-     * @var OutputInterface
-     */
-    protected $output;
+    protected int $indent = 0;
 
     /**
      * OutputDecorator constructor.
      *
-     * @param OutputInterface $originalOutput Output interface where this decorator will write
+     * @param OutputInterface $output Output interface where this decorator will write
+     *
+     * @noinspection PropertyCanBePrivateInspection
      */
-    public function __construct(OutputInterface $originalOutput)
-    {
-        $this->output = $originalOutput;
+    public function __construct(
+        protected readonly OutputInterface $output
+    ) {
     }
 
     /**
@@ -81,7 +78,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function write($messages, $newline = false, $options = self::OUTPUT_NORMAL)
+    public function write(iterable|string $messages, bool $newline = false, int $options = self::OUTPUT_NORMAL): void
     {
         if ($this->indent > 0) {
             $tmpMsg = '';
@@ -90,10 +87,8 @@ class OutputDecorator implements OutputInterface
             }
             $messages = rtrim($tmpMsg);
         }
-        /*if (trim($messages) == '') {
-            return $this->output->write(var_export([$messages, debug_backtrace(false)[1]], true), $newline, $options);
-        }*/
-        return $this->output->write($messages, $newline, $options);
+
+        $this->output->write($messages, $newline, $options);
     }
 
     /**
@@ -143,7 +138,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function writeln($messages, $options = 0)
+    public function writeln(iterable|string $messages, int $options = 0): void
     {
         $this->write($messages, true, $options);
     }
@@ -151,7 +146,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function setVerbosity($level)
+    public function setVerbosity(int $level): void
     {
         $this->output->setVerbosity($level);
     }
@@ -199,7 +194,7 @@ class OutputDecorator implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function setDecorated($decorated): void
+    public function setDecorated(bool $decorated): void
     {
         $this->output->setDecorated($decorated);
     }
