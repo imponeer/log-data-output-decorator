@@ -59,9 +59,9 @@ class OutputDecorator implements OutputInterface
      * Prints fatal message
      *
      * @param string $message Message to print
-     * @param mixed ...$params Params for parsing message
+     * @param string|int|float|bool|null ...$params Params for parsing message
      */
-    public function fatal(string $message, ...$params): void
+    public function fatal(string $message, string|int|float|bool|null ...$params): void
     {
         $this->write('<error>' . vsprintf($message, $params) . '</error>', true);
     }
@@ -78,15 +78,18 @@ class OutputDecorator implements OutputInterface
 
     /**
      * @inheritDoc
+     * @param iterable<string>|string $messages
      */
     public function write(iterable|string $messages, bool $newline = false, int $options = self::OUTPUT_NORMAL): void
     {
         if ($this->indent > 0) {
             $tmpMsg = '';
-            foreach (explode(PHP_EOL, $messages) as $line) {
-                $tmpMsg .= $this->renderIndentString() . $line . PHP_EOL;
+            if (is_string($messages)) {
+                foreach (explode(PHP_EOL, $messages) as $line) {
+                    $tmpMsg .= $this->renderIndentString() . $line . PHP_EOL;
+                }
+                $messages = rtrim($tmpMsg);
             }
-            $messages = rtrim($tmpMsg);
         }
 
         $this->output->write($messages, $newline, $options);
@@ -96,9 +99,9 @@ class OutputDecorator implements OutputInterface
      * Prints success message
      *
      * @param string $message Message to print
-     * @param mixed ...$params Params for parsing message
+     * @param string|int|float|bool|null ...$params Params for parsing message
      */
-    public function success(string $message, ...$params): void
+    public function success(string $message, string|int|float|bool|null ...$params): void
     {
         $this->write('<info>' . vsprintf($message, $params) . '</info>', true);
     }
@@ -107,9 +110,9 @@ class OutputDecorator implements OutputInterface
      * Prints error message
      *
      * @param string $message Message to print
-     * @param mixed ...$params Params for parsing message
+     * @param string|int|float|bool|null ...$params Params for parsing message
      */
-    public function error(string $message, ...$params): void
+    public function error(string $message, string|int|float|bool|null ...$params): void
     {
         $this->write('<error>' . vsprintf($message, $params) . '</error>', true);
     }
@@ -118,9 +121,9 @@ class OutputDecorator implements OutputInterface
      * Prints info message
      *
      * @param string $message Message to print
-     * @param mixed ...$params Params for parsing message
+     * @param string|int|float|bool|null ...$params Params for parsing message
      */
-    public function info(string $message, ...$params): void
+    public function info(string $message, string|int|float|bool|null ...$params): void
     {
         $this->write('<comment>' . vsprintf($message, $params) . '</comment>', true);
     }
@@ -129,15 +132,16 @@ class OutputDecorator implements OutputInterface
      * Prints simple message
      *
      * @param string $message Message to print
-     * @param mixed ...$params Params for parsing message
+     * @param string|int|float|bool|null ...$params Params for parsing message
      */
-    public function msg(string $message, ...$params): void
+    public function msg(string $message, string|int|float|bool|null ...$params): void
     {
         $this->write(vsprintf($message, $params), true);
     }
 
     /**
      * @inheritDoc
+     * @param iterable<string>|string $messages
      */
     public function writeln(iterable|string $messages, int $options = 0): void
     {
