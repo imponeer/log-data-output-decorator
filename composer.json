@@ -18,6 +18,11 @@
             "Imponeer\\Decorators\\LogDataOutput\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Imponeer\\Decorators\\LogDataOutput\\Tests\\": "tests/"
+        }
+    },
     "keywords": [
         "symfony",
         "console",

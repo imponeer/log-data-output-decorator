@@ -1,5 +1,7 @@
 <?php
 
+namespace Imponeer\Decorators\LogDataOutput\Tests;
+
 use Imponeer\Decorators\LogDataOutput\OutputDecorator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
