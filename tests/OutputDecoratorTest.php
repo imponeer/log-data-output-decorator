@@ -20,6 +20,9 @@ class OutputDecoratorTest extends TestCase
         parent::setUp();
     }
 
+    /**
+     * @return array<string, array<int, mixed>>
+     */
     public static function getTestData(): array
     {
         return [
@@ -90,6 +93,9 @@ class OutputDecoratorTest extends TestCase
         ];
     }
 
+    /**
+     * @param array<int, mixed> $params
+     */
     private function useDecoratorMethod(string $method, string $text, array $params): string
     {
         if (empty($params)) {
@@ -102,6 +108,9 @@ class OutputDecoratorTest extends TestCase
         return $this->output->fetch();
     }
 
+    /**
+     * @param array<int, mixed> $args
+     */
     #[DataProvider('getTestData')]
     public function testIncrIndent(string $method, string $text, array $args = [], ?string $shouldReturn = null): void
     {
@@ -123,6 +132,9 @@ class OutputDecoratorTest extends TestCase
         $this->assertSame($this->decorator->renderIndentString() . $shouldReturn . PHP_EOL, $buffer);
     }
 
+    /**
+     * @param array<int, mixed> $args
+     */
     #[DataProvider('getTestData')]
     public function testDecrIndent(string $method, string $text, array $args = [], ?string $shouldReturn = null): void
     {
@@ -140,6 +152,9 @@ class OutputDecoratorTest extends TestCase
         $this->assertSame($shouldReturn . PHP_EOL, $buffer);
     }
 
+    /**
+     * @param array<int, mixed> $args
+     */
     #[DataProvider('getTestData')]
     public function testResetIncr(string $method, string $text, array $args = [], ?string $shouldReturn = null): void
     {
