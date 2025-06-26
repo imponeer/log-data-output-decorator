@@ -1,5 +1,7 @@
 <?php
 
+namespace Imponeer\Decorators\LogDataOutput\Tests;
+
 use Imponeer\Decorators\LogDataOutput\OutputDecorator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +20,8 @@ class OutputDecoratorTest extends TestCase
         parent::setUp();
     }
 
-    public static function getTestData(): array {
+    public static function getTestData(): array
+    {
         return [
             'writeln (simple)' => [
                 'writeln',
@@ -87,7 +90,8 @@ class OutputDecoratorTest extends TestCase
         ];
     }
 
-    private function useDecoratorMethod(string $method, string $text, array $params): string {
+    private function useDecoratorMethod(string $method, string $text, array $params): string
+    {
         if (empty($params)) {
             $this->decorator->$method($text);
         } else {
@@ -99,7 +103,8 @@ class OutputDecoratorTest extends TestCase
     }
 
     #[DataProvider('getTestData')]
-    public function testIncrIndent(string $method, string $text, array $args = [], ?string $shouldReturn = null): void {
+    public function testIncrIndent(string $method, string $text, array $args = [], ?string $shouldReturn = null): void
+    {
         if ($shouldReturn === null) {
             $shouldReturn = $text;
         }
@@ -136,7 +141,8 @@ class OutputDecoratorTest extends TestCase
     }
 
     #[DataProvider('getTestData')]
-    public function testResetIncr(string $method, string $text, array $args = [], ?string $shouldReturn = null): void {
+    public function testResetIncr(string $method, string $text, array $args = [], ?string $shouldReturn = null): void
+    {
         if ($shouldReturn === null) {
             $shouldReturn = $text;
         }
@@ -152,5 +158,4 @@ class OutputDecoratorTest extends TestCase
         $buffer = $this->useDecoratorMethod($method, $text, $args);
         $this->assertSame($shouldReturn . PHP_EOL, $buffer);
     }
-
 }

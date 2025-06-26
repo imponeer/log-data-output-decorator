@@ -71,7 +71,8 @@ class OutputDecorator implements OutputInterface
      *
      * @return string
      */
-    public function renderIndentString(): string {
+    public function renderIndentString(): string
+    {
         return str_repeat(' ', $this->indent * 2);
     }
 
